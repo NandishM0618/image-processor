@@ -8,6 +8,7 @@ export default (first) => {
     const [file, setFile] = useState(null)
     const [userId, setUserId] = useState(null)
     const [message, setMessage] = useState("");
+    const [loading,setLoading] = useState(false);
 
 
     const { data: session, status } = useSession()
@@ -20,19 +21,30 @@ export default (first) => {
         }
     }
 
-    const handleUpload = () => {
+   const handleUpload = async () => {
         if (!session) {
-            setMessage("⚠️ Please log in to upload images.");
-            return;
+            setMessage("⚠️ Please log in to upload images.")
+            return
         }
         if (!file) {
-            setMessage("⚠️ Please select a file before uploading.");
-            return;
+            setMessage("⚠️ Please select a file before uploading.")
+            return
         }
 
-        setMessage("");
-        uploadFile(file, userId);
-    };
+        setMessage("")
+        setLoading(true)
+
+        try {
+            await uploadFile(file, userId)
+            setMessage("✅ Upload successful!")
+            setFile(null)
+        } catch (error) {
+            console.error("Upload failed:", error)
+            setMessage("❌ Upload failed. Please try again.")
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
         if (status === "authenticated" && session?.user) {
@@ -65,9 +77,14 @@ export default (first) => {
                                     : "bg-purple-500 text-white hover:bg-purple-600"
                                     }`}
                             >
-                                Upload
+                                {loading ? "Uploading..." : "Upload"}
                             </button>
                         </div>
+                        {loading && (
+                            <div className="mt-2 flex justify-center">
+                                <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                            </div>
+                        )}
                         {message && (
                             <p className="text-sm text-red-500 font-medium">{message}</p>
                         )}
