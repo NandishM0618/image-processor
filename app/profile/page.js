@@ -3,7 +3,9 @@ import { useSession } from "next-auth/react"
 
 export default (first) => {
     const { data: session } = useSession()
-
+    if (!session) {
+        return <p>Please login to view your profile.</p>;
+    }
     return (
         <div className="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
 
