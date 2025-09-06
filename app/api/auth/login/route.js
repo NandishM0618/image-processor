@@ -7,7 +7,7 @@ export async function GET() {
     const client = await getCognitoClient();
     const url = client.authorizationUrl({
         scope: "email openid phone",
-        redirect_uri: "http://localhost:3000/api/auth/callback",
+        redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback`,
         response_type: "code",
     })
     return NextResponse.redirect(url)

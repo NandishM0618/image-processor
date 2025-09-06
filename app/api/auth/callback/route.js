@@ -6,7 +6,7 @@ export async function GET(req) {
     // const url = new URL(req.url)
     const params = client.callbackParams(req.url);
     const tokenSet = await client.callback(
-        "http://localhost:3000/api/auth/callback",
+        `${process.env.NEXTAUTH_URL}/api/auth/callback`,
         params
     )
     const res = NextResponse.redirect(new URL("/", req.url));

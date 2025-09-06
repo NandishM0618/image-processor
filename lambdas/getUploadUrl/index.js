@@ -13,7 +13,7 @@ export const handler = async (event) => {
         return {
             statusCode: 200,
             headers: {
-                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Origin": "https://image-processor-nfi4.vercel.app",
                 "Access-Control-Allow-Headers": "Content-Type,Authorization",
                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
                 "Access-Control-Allow-Credentials": "true",
@@ -46,7 +46,7 @@ export const handler = async (event) => {
         return {
             statusCode: 200,
             headers: {
-                "Access-Control-Allow-Origin": "http://localhost:3000",
+                "Access-Control-Allow-Origin": "https://image-processor-nfi4.vercel.app",
                 "Access-Control-Allow-Credentials": "true",
             },
             body: JSON.stringify({

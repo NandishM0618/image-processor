@@ -16,7 +16,7 @@ export async function getCognitoClient(params) {
     client = new issuer.Client({
         client_id: process.env.COGNITO_CLIENT_ID,
         client_secret: process.env.COGNITO_CLIENT_SECRET,
-        redirect_uris: ['http://localhost:3000/api/auth/callback'],
+        redirect_uris: [`${process.env.NEXTAUTH_URL}/api/auth/callback`],
         response_types: ['code']
     })
     console.log(region)
