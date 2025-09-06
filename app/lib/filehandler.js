@@ -1,10 +1,10 @@
 export async function uploadFile(file, userId) {
     if (!file) return alert("No file selected")
-    const REGION = process.env.REGION
-    const API = process.env.API_GATEWAY_URL
+    const REGION = process.env.NEXT_PUBLIC_REGION
+    const API_GATEWAY_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL
 
     try {
-        const res = await fetch(`https://${API}.execute-api.${REGION}.amazonaws.com/get-upload-url`, {
+        const res = await fetch(`https://${API_GATEWAY_URL}.execute-api.${REGION}.amazonaws.com/get-upload-url`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ fileName: file.name, fileType: file.type, userId }),
