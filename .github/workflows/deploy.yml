@@ -27,7 +27,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy ImageProcessor Lambda
+      - name: Deploy ImageProcessor Lambda func
         run: |
           cd lambdas/imageProcessor
           npm install
@@ -37,7 +37,7 @@ jobs:
             --zip-file fileb://lambda.zip \
             --region $AWS_REGION
 
-      - name: Deploy GetUploadURL Lambda
+      - name: Deploy GetUploadURL Lambda func
         run: |
           cd lambdas/getUploadUrl
           npm install
