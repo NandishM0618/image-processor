@@ -1,0 +1,48 @@
+name: Deploy Lambda Functions
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-lambdas:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies for ImageProcessor
+        run: |
+          cd app/api/imageProcessor
+          npm install
+          zip -r lambda.zip .
+
+      - name: Deploy ImageProcessor Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name ImageProcessorLambda \
+            --zip-file fileb://app/api/imageProcessor/lambda.zip \
+            --region $AWS_REGION
+
+      - name: Install dependencies for GetUploadURL
+        run: |
+          cd app/api/getUploadUrl
+          npm install
+          zip -r lambda.zip .
+
+      - name: Deploy GetUploadURL Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name GetUploadURLLambda \
+            --zip-file fileb://app/api/getUploadUrl/lambda.zip \
+            --region $AWS_REGION
