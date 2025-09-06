@@ -4,9 +4,10 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
     const client = await getCognitoClient()
     // const url = new URL(req.url)
+    const redirectUri = process.env.NEXTAUTH_URL + "/api/auth/callback";
     const params = client.callbackParams(req.url);
     const tokenSet = await client.callback(
-        `${process.env.NEXTAUTH_URL}/api/auth/callback`,
+        redirectUri,
         params
     )
     const res = NextResponse.redirect(new URL("/", req.url));
