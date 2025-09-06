@@ -11,7 +11,7 @@ export async function GET(req) {
         params
     )
     const res = NextResponse.redirect(new URL("/", req.url));
-
+    console.log(redirectUri)
     res.cookies.set("id_token", tokenSet.id_token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
