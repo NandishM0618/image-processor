@@ -8,7 +8,6 @@ on:
 jobs:
   deploy-lambdas:
     runs-on: ubuntu-latest
-
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
 
@@ -21,28 +20,22 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies for ImageProcessor
-        run: |
-          cd app/api/imageProcessor
-          npm install
-          zip -r lambda.zip .
-
       - name: Deploy ImageProcessor Lambda
         run: |
-          aws lambda update-function-code \
-            --function-name ImageProcessorLambda \
-            --zip-file fileb://app/api/imageProcessor/lambda.zip \
-            --region $AWS_REGION
-
-      - name: Install dependencies for GetUploadURL
-        run: |
-          cd app/api/getUploadUrl
+          cd lambdas/imageProcessor
           npm install
           zip -r lambda.zip .
+          aws lambda update-function-code \
+            --function-name ImageProcessorLambda \
+            --zip-file fileb://lambda.zip \
+            --region $AWS_REGION
 
       - name: Deploy GetUploadURL Lambda
         run: |
+          cd lambdas/getUploadUrl
+          npm install
+          zip -r lambda.zip .
           aws lambda update-function-code \
             --function-name GetUploadURLLambda \
-            --zip-file fileb://app/api/getUploadUrl/lambda.zip \
+            --zip-file fileb://lambda.zip \
             --region $AWS_REGION
