@@ -10,5 +10,6 @@ export async function GET() {
         redirect_uri: process.env.NEXTAUTH_URL + "/api/auth/callback",
         response_type: "code",
     })
+    console.log(process.env.NEXTAUTH_URL + "/api/auth/callback")
     return NextResponse.redirect(url)
 }
