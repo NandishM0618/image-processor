@@ -4,13 +4,13 @@ import { useEffect, useState } from "react"
 export default (first) => {
     const [images, setImages] = useState([])
     const [loading, setLoading] = useState(true)
-    const API = process.env.API_GATEWAY_URL
-    const REGION = process.env.REGION
+    const API_GATEWAY_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL
+    const REGION = process.env.NEXT_PUBLIC_REGION
 
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const res = await fetch(`https://${API}.execute-api.${REGION}.amazonaws.com/get-images`, {
+                const res = await fetch(`https://${API_GATEWAY_URL}.execute-api.${REGION}.amazonaws.com/get-images`, {
                     method: "GET",
                     credentials: "include"
                 })
