@@ -43,6 +43,6 @@ jobs:
           npm install
           zip -r lambda.zip .
           aws lambda update-function-code \
-            --function-name GetUploadURLLambda \
+            --function-name generatePresignedUrl \
             --zip-file fileb://lambda.zip \
             --region $AWS_REGION
