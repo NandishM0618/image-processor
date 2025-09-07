@@ -26,6 +26,7 @@ export default (first) => {
                 <div>
                     <h3 className="text-lg font-semibold text-white mb-4">Resources</h3>
                     <ul className="space-y-2">
+                         <li><a href="https://github.com/NandishM0618/image-processor/" className="hover:text-purple-400">GitHub</a></li>
                         <li><a href="#" className="hover:text-purple-400">Docs</a></li>
                         <li><a href="#" className="hover:text-purple-400">API</a></li>
                         <li><a href="#" className="hover:text-purple-400">Support</a></li>
